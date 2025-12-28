@@ -1,0 +1,39 @@
+Script started on 2025-12-24 19:06:24+02:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="184" LINES="38"]
+[?2004h]0;ianis@ianis-VirtualBox: ~/ITBI/lab5/proiect-ITBI-2026[01;32mianis@ianis-VirtualBox[00m:[01;34m~/ITBI/lab5/proiect-ITBI-2026[00m$ ls -l
+[?2004ltotal 4
+-rw-rw-r-- 1 ianis ianis 28 Dec 24 18:43 README.md
+-rw-rw-r-- 1 ianis ianis  0 Dec 24 18:43 script.sh
+-rw-rw-r-- 1 ianis ianis  0 Dec 24 19:06 sesiune_test.log
+[?2004h]0;ianis@ianis-VirtualBox: ~/ITBI/lab5/proiect-ITBI-2026[01;32mianis@ianis-VirtualBox[00m:[01;34m~/ITBI/lab5/proiect-ITBI-2026[00m$ df
+[?2004lFilesystem     1K-blocks     Used Available Use% Mounted on
+tmpfs             348436     1632    346804   1% /run
+/dev/sda2       65737260 16936364  45429224  28% /
+tmpfs            1742164        4   1742160   1% /dev/shm
+tmpfs               5120        8      5112   1% /run/lock
+tmpfs               1024        0      1024   0% /run/credentials/systemd-journald.service
+tmpfs            1742164       28   1742136   1% /tmp
+tmpfs               1024        0      1024   0% /run/credentials/systemd-resolved.service
+tmpfs             348432     4136    344296   2% /run/user/1000
+/dev/sr0         6131368  6131368         0 100% /media/ianis/Ubuntu 25.04 amd641
+[?2004h]0;ianis@ianis-VirtualBox: ~/ITBI/lab5/proiect-ITBI-2026[01;32mianis@ianis-VirtualBox[00m:[01;34m~/ITBI/lab5/proiect-ITBI-2026[00m$ touch fisier_nou.txt
+[?2004l[?2004h]0;ianis@ianis-VirtualBox: ~/ITBI/lab5/proiect-ITBI-2026[01;32mianis@ianis-VirtualBox[00m:[01;34m~/ITBI/lab5/proiect-ITBI-2026[00m$ ls -l
+[?2004ltotal 4
+-rw-rw-r-- 1 ianis ianis  0 Dec 24 19:07 fisier_nou.txt
+-rw-rw-r-- 1 ianis ianis 28 Dec 24 18:43 README.md
+-rw-rw-r-- 1 ianis ianis  0 Dec 24 18:43 script.sh
+-rw-rw-r-- 1 ianis ianis  0 Dec 24 19:06 sesiune_test.log
+[?2004h]0;ianis@ianis-VirtualBox: ~/ITBI/lab5/proiect-ITBI-2026[01;32mianis@ianis-VirtualBox[00m:[01;34m~/ITBI/lab5/proiect-ITBI-2026[00m$ df
+[?2004lFilesystem     1K-blocks     Used Available Use% Mounted on
+tmpfs             348436     1632    346804   1% /run
+/dev/sda2       65737260 16936364  45429224  28% /
+tmpfs            1742164        4   1742160   1% /dev/shm
+tmpfs               5120        8      5112   1% /run/lock
+tmpfs               1024        0      1024   0% /run/credentials/systemd-journald.service
+tmpfs            1742164       28   1742136   1% /tmp
+tmpfs               1024        0      1024   0% /run/credentials/systemd-resolved.service
+tmpfs             348432     4136    344296   2% /run/user/1000
+/dev/sr0         6131368  6131368         0 100% /media/ianis/Ubuntu 25.04 amd641
+[?2004h]0;ianis@ianis-VirtualBox: ~/ITBI/lab5/proiect-ITBI-2026[01;32mianis@ianis-VirtualBox[00m:[01;34m~/ITBI/lab5/proiect-ITBI-2026[00m$ exit
+[?2004lexit
+
+Script done on 2025-12-24 19:08:00+02:00 [COMMAND_EXIT_CODE="0"]
