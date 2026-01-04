@@ -25,3 +25,18 @@
         comm -23 <(sort date_t1.tmp) <(sort date_t2.tmp) | awk '{printf " [-] %s\n", $1}'
 
     }
+
+    compara_df(){
+        echo -e "\n=== Analiza spatiului disc (df) === "
+        USED_T1=$(grep "/$" log_curat.tmp | head -n 1 | awk '{print $3}')
+        USED_T2=$(grep "/$" log_curat.tmp | tail -n 1 | awk '{print $3}')
+        DIFF=$((USED_T2 - USED_T1))
+        
+        if [ $DIFF -gt 0 ]; then
+            echo "Atentie: Spatiul ocupat a crescut cu $DIFF KB."
+        elif [ $DIFF -lt 0 ]; then
+            echo "Info: Spatiul ocupat a scazut cu ${DIFF#-} KB."
+        else
+            echo "Info: Nu s-au detectat modificari de spatiu pe disc."
+        fi
+    }
