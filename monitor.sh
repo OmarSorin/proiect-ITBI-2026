@@ -17,7 +17,7 @@ if [ -z "$TXT_VECHI" ] || [ -z "$TXT_NOU" ]; then
 fi
 
 analiza_disc() {
-	echo -e "\n${ALBASTRU}=== 1. ANALIZA SPAȚIU PE DISC (Evoluție) ===${NC}"
+	echo -e "\n${ALBASTRU}=== 1. ANALIZA SPATIU PE DISC (Evoluție) ===${NC}"
 
 	DISK_VECHI=$(grep " /$" "$TXT_VECHI")
 	DISK_NOU=$(grep " /$" "$TXT_NOU")
@@ -28,20 +28,20 @@ analiza_disc() {
 	if [ "$USED_N" -gt "$USED_V" ]; then
 		DIF=$((USED_N - USED_V))
 		MB=$((DIF / 1024))
-		echo -e "${ROSU}[!] Spațiul ocupat a CRESCUT cu aprox. ${MB} MB${NC} ($DIF KB)."
+		echo -e "${ROSU}[!] Spatiul ocupat a CRESCUT cu aprox. ${MB} MB${NC} ($DIF KB)."
 		echo -e "   Înainte: $USED_V KB -> Acum: $USED_N KB"
 
 	elif [ "$USED_N" -lt "$USED_V" ]; then
 		DIF=$((USED_V - USED_N))
 		MB=$((DIF / 1024))
-		echo -e "${VERDE}[OK] S-a eliberat spațiu: ${MB} MB${NC} ($DIF KB)."
+		echo -e "${VERDE}[OK] S-a eliberat spatiu: ${MB} MB${NC} ($DIF KB)."
 	else
-		echo -e "${VERDE}[OK] Nicio modificare a spațiului pe disc.${NC}"
+		echo -e "${VERDE}[OK] Nicio modificare a spatiului pe disc.${NC}"
 	fi
 }
 
 analiza_fisiere() {
-	echo -e "\n${ALBASTRU}=== 2. ANALIZA MODIFICĂRI FIȘIERE (ls -l) ===${NC}"
+	echo -e "\n${ALBASTRU}=== 2. ANALIZA MODIFICARI FISIERE (ls -l) ===${NC}"
 
 	grep "^[-d]" "$TXT_VECHI" > /tmp/files_old.tmp
 	grep "^[-d]" "$TXT_NOU" > /tmp/files_new.tmp
@@ -66,5 +66,50 @@ analiza_fisiere() {
 	echo -e "\n"
 }
 
+analiza_fisiere_updated() {
+	echo -e "\n${ALBASTRU}=== 2. ANALIZA MODIFICARI FISIERE  ===${NC}"
+
+        grep "^[-d]" "$TXT_VECHI" | tr -s ' ' > /tmp/lista_veche.tmp
+	grep "^[-d]" "$TXT_NOU"   | tr -s ' ' > /tmp/lista_noua.tmp
+
+        MODIFICARI_DETECTATE=0
+
+        while read -r linie_noua; do
+
+                nume=$(echo "$linie_noua" | awk '{print $NF}')
+
+		size_nou=$(echo "$linie_noua" | awk '{print $5}')
+
+                linie_veche=$(grep " $nume" /tmp/lista_veche.tmp)
+
+                if [ -z "$linie_veche" ]; then
+                        echo -e "       ${VERDE}[+] APARUT(NOU):${NC}   $nume"
+                        MODIFICARE_DETECTATE=1
+                else
+			size_vechi=$(echo "$linie_veche" | awk '{print $5}')
+                        if [ "$size_nou" != "$size_vechi" ]; then
+                                echo -e "       ${GALBEN}[*] MODIFICAT:${NC}    $nume ( Marime :  $size_vechi --> $size_nou)"
+                                MODIFICARI_DETECTATE=1
+                        fi
+                fi
+        done < /tmp/lista_noua.tmp
+
+        while read -r linie_veche; do
+                nume=$(echo "$linie_veche" | awk '{print $NF}')
+                exista_in_nou=$(grep " $nume$" /tmp/lista_noua.tmp)
+
+                if [ -z "$exista_in_nou" ]; then
+                        echo -e "       ${ROSU}[-] STERS:${NC}  $nume"
+                        MODIFICARI_DETECTATE=1
+                fi
+        done < /tmp/lista_veche.tmp
+
+        if [ $MODIFICARI_DETECTATE -eq 0 ]; then
+                echo -e "${VERDE} Nu s-au detectat modifcari in structura fisierelor.${NC}"
+        fi
+        echo -e "\n"
+
+}
+
 analiza_disc
-analiza_fisiere
+analiza_fisiere_updated
