@@ -1,0 +1,5 @@
+script -q -c "ls -l; df -P /" $RAW_VECHI <-- comanda creare fisier disk free
+
+col -b < $RAW_VECHI > $TXT_VECHI <-- comanda curatare fisier raw
+
+dd if=/dev/zero of=$FISIER_MARE bs=1M count=500 status=none <-- comanda fisier mare
