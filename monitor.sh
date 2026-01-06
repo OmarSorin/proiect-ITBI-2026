@@ -76,19 +76,19 @@ analiza_fisiere_updated() {
 
         while read -r linie_noua; do
 
-                nume=$(echo "$linie_noua" | awk '{print $NF}')
+                nume=$(echo "$linie_noua" | awk '{print $NF}' | tr -d '\r\n')
 
-		size_nou=$(echo "$linie_noua" | awk '{print $5}')
+		size_nou=$(echo "$linie_noua" | awk '{print $5}' | tr -d '\r\n')
 
-                linie_veche=$(grep " $nume" /tmp/lista_veche.tmp)
+                linie_veche=$(grep " $nume" /tmp/lista_veche.tmp | tail -n 1)
 
                 if [ -z "$linie_veche" ]; then
-                        echo -e "       ${VERDE}[+] APARUT(NOU):${NC}   $nume"
+                        echo -e "	${VERDE}[+] APARUT(NOU):${NC}   $nume	$size_nou"
                         MODIFICARE_DETECTATE=1
                 else
-			size_vechi=$(echo "$linie_veche" | awk '{print $5}')
+			size_vechi=$(echo "$linie_veche" | awk '{print $5}' | tr -d '\r\n')
                         if [ "$size_nou" != "$size_vechi" ]; then
-                                echo -e "       ${GALBEN}[*] MODIFICAT:${NC}    $nume ( Marime :  $size_vechi --> $size_nou)"
+                                echo -e "	${GALBEN}[*] MODIFICAT:${NC}	$nume	( Marime $size_vechi --> $size_nou )"
                                 MODIFICARI_DETECTATE=1
                         fi
                 fi
@@ -96,10 +96,10 @@ analiza_fisiere_updated() {
 
         while read -r linie_veche; do
                 nume=$(echo "$linie_veche" | awk '{print $NF}')
-                exista_in_nou=$(grep " $nume$" /tmp/lista_noua.tmp)
+                exista_in_nou=$(grep " $nume$" /tmp/lista_noua.tmp | tail -n 1)
 
                 if [ -z "$exista_in_nou" ]; then
-                        echo -e "       ${ROSU}[-] STERS:${NC}  $nume"
+                        echo -e "	${ROSU}[-] STERS:${NC}  $nume"
                         MODIFICARI_DETECTATE=1
                 fi
         done < /tmp/lista_veche.tmp
